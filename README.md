@@ -1,24 +1,37 @@
 # Dataset français de détection des spams
 
 <p align="center">
-  <img src="https://img.shields.io/badge/🚀_VERSION-1.0-7c3aed?style=for-the-badge&labelColor=111827" alt="Version 1.1.0">
+  <img src="https://img.shields.io/badge/🚀_VERSION-1.0-7c3aed?style=for-the-badge&labelColor=111827" alt="Version 1.0">
   <img src="https://img.shields.io/badge/📦_MESSAGES-10_000-0ea5e9?style=for-the-badge&labelColor=111827" alt="10 000 messages">
   <img src="https://img.shields.io/badge/🇫🇷_LANGUE-Français-f97316?style=for-the-badge&labelColor=111827" alt="Français">
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/🧪_NATURE-Synthétique_diversifié-e11d48?style=for-the-badge&labelColor=111827" alt="Corpus synthétique diversifié">
-  <img src="https://img.shields.io/badge/🛡️_SÉPARATION-Splits_par_templates-16a34a?style=for-the-badge&labelColor=111827" alt="Séparation par familles de templates">
+  <img src="https://img.shields.io/badge/🧪_NATURE-Synthétique-e11d48?style=for-the-badge&labelColor=111827" alt="Dataset synthétique">
+  <img src="https://img.shields.io/badge/🤖_USAGE-Entraînement_et_prototypage-16a34a?style=for-the-badge&labelColor=111827" alt="Entraînement et prototypage">
   <img src="https://img.shields.io/badge/⚖️_LICENCE-CC_BY_4.0-f59e0b?style=for-the-badge&labelColor=111827" alt="Licence CC BY 4.0">
 </p>
 
-> Données synthétiques françaises destinées à l’entraînement et à l’évaluation de modèles d’intelligence artificielle dédiés à la détection des spams.
+> Dataset synthétique de messages français destiné à l’entraînement et au prototypage de modèles d’intelligence artificielle capables de détecter les spams.
 
 ## Présentation
 
-Ce dataset contient des SMS et des emails en français, répartis entre messages indésirables et messages légitimes. Les textes sont conçus pour entraîner, tester et comparer des modèles de classification automatique.
+Il existe encore peu de datasets francophones dédiés à la détection des messages indésirables. Ce projet a été créé pour fournir une première base accessible à la communauté, aux chercheurs, aux étudiants et aux développeurs qui souhaitent travailler sur la classification automatique des spams en français.
 
-Le corpus comprend différentes formulations, longueurs, situations et catégories de spam afin de fournir une base de travail diversifiée pour les projets de traitement automatique du langage.
+Cette version contient des SMS et des emails classés en deux catégories :
+
+- `spam` : message indésirable ;
+- `legitimate` : message légitime.
+
+Les messages sont synthétiques, diversifiés et conçus pour servir de base à l’apprentissage, aux tests et au prototypage.
+
+## Version précédente
+
+Une première version du projet était basée sur la traduction en français de messages provenant d’un corpus anglophone. Cette approche reste utile pour constituer une base initiale, mais elle ne reflète pas toujours les formulations naturelles, les habitudes d’écriture et les contextes propres aux messages francophones.
+
+Cette version propose donc un corpus généré directement en français :
+
+[Consulter la version basée sur les traductions](https://github.com/Djochrist/Kaggle-SMS-Spam-Collection-Dataset-French)
 
 ## Chiffres clés
 
@@ -29,122 +42,75 @@ Le corpus comprend différentes formulations, longueurs, situations et catégori
 | Messages légitimes | 5 000 |
 | SMS | 5 000 |
 | Emails | 5 000 |
-| Familles de templates | 104 |
 | Textes uniques | 10 000 |
-| Textes vides | 0 |
-| Encodage | UTF-8 |
+| Langue | Français |
+| Version | 1.0 |
 
-## Répartition des données
+## Structure du dataset
 
-| Ensemble | Nombre de messages |
-|---|---:|
-| Entraînement | 6 335 |
-| Validation | 1 834 |
-| Test | 1 831 |
-
-Les familles de templates sont séparées entre les différents ensembles afin d’éviter qu’une même structure de message apparaisse à la fois dans l’entraînement et dans le test.
-
-## Catégories de spam
-
-Les messages indésirables sont répartis dans plusieurs catégories :
-
-- Hameçonnage ;
-- Arnaque ;
-- Publicité non sollicitée ;
-- Abonnement ou service surtaxé ;
-- Sextorsion ou chantage ;
-- Logiciel malveillant ou lien dangereux ;
-- Autres types de spam.
-
-Les messages légitimes utilisent la catégorie `unknown`.
-
-## Structure du fichier
-
-Le fichier principal est disponible à l’emplacement suivant :
-
-```text
-data/messages.csv
-```
-
-Il contient les colonnes suivantes :
+Le fichier principal contient les colonnes suivantes :
 
 | Colonne | Description |
 |---|---|
 | `id` | Identifiant unique du message |
-| `text` | Contenu textuel du SMS ou de l’email |
-| `label` | Étiquette : `spam` ou `legitimate` |
-| `domain` | Type de message : `sms` ou `email` |
+| `text` | Contenu du SMS ou de l’email |
+| `label` | Catégorie du message |
+| `domain` | Type de contenu : SMS ou email |
 | `spam_category` | Catégorie du spam |
-| `split` | Ensemble : `train`, `validation` ou `test` |
-| `template_group` | Identifiant de la famille de template |
+| `split` | Ensemble d’entraînement, de validation ou de test |
+| `template_group` | Groupe de structure utilisé pour contrôler la séparation des données |
 
-## Utilisation recommandée
+## Utilisations
 
-Pour entraîner un modèle de classification :
+Ce dataset peut être utilisé pour :
 
-- utilisez `text` comme donnée d’entrée ;
-- utilisez `label` comme variable cible ;
-- conservez les ensembles `train`, `validation` et `test` ;
-- excluez `id` et `template_group` des variables utilisées par le modèle ;
-- utilisez `domain` et `spam_category` uniquement comme informations auxiliaires.
-
-Exemple de lecture avec Python :
-
-```python
-import pandas as pd
-
-dataset = pd.read_csv("data/messages.csv")
-
-train = dataset[dataset["split"] == "train"]
-validation = dataset[dataset["split"] == "validation"]
-test = dataset[dataset["split"] == "test"]
-
-X_train = train["text"]
-y_train = train["label"]
-```
+- entraîner un premier modèle de détection des spams ;
+- tester des méthodes de classification de textes ;
+- comparer des modèles de traitement automatique du langage ;
+- créer des démonstrations et des prototypes ;
+- tester des pipelines de préparation et d’évaluation des données ;
+- contribuer à la recherche sur la détection des spams en français.
 
 ## Limites
 
-Ce dataset est entièrement synthétique. Les messages sont uniques et diversifiés, mais ils ne proviennent pas de conversations réelles.
+Les messages de cette version sont synthétiques. Ils ne proviennent pas de conversations réelles et ne représentent pas nécessairement la diversité des messages reçus dans un environnement réel.
 
-Il ne représente donc pas nécessairement :
+Le dataset doit donc être considéré comme une base de départ pour l’apprentissage et le prototypage. Il a vocation à évoluer progressivement vers un corpus plus réaliste, comprenant des messages réels anonymisés, légalement obtenus et annotés par des personnes compétentes.
 
-- la fréquence réelle des spams ;
-- toutes les habitudes d’écriture des utilisateurs ;
-- les fautes et abréviations réellement utilisées ;
-- les nouvelles techniques de fraude ;
-- toutes les variétés de la langue française ;
-- la diversité des messages reçus dans un environnement professionnel ou personnel.
+Avant toute utilisation en production, il est recommandé d’évaluer le modèle sur un corpus réel indépendant.
 
-Avant toute utilisation en production, il est recommandé de tester le modèle sur un corpus réel, légalement obtenu, anonymisé et annoté par des experts humains.
+## Séparation des données
 
-## Intégrité du fichier
+Les messages sont répartis entre les ensembles :
 
-L’empreinte SHA-256 du fichier `data/messages.csv` est :
+- `train` : entraînement ;
+- `validation` : réglage et comparaison des modèles ;
+- `test` : évaluation finale.
 
-```text
-8d8f9130838a0bea10bc4f99dbe563b2ca903f90be38aa13a9a57c46e33aac4d
-```
-
-Cette empreinte permet de vérifier que le fichier utilisé correspond exactement à la version publiée.
+Les familles de structures similaires sont séparées afin de limiter la présence de variantes proches dans plusieurs ensembles.
 
 ## Licence
 
-Le dataset est distribué sous licence **Creative Commons Attribution 4.0 International — CC BY 4.0**.
+Ce dataset est distribué sous licence **Creative Commons Attribution 4.0 International — CC BY 4.0**.
 
-Cette licence autorise l’utilisation, la modification et la redistribution du dataset, y compris dans des projets commerciaux, à condition de créditer la source.
+Vous pouvez l’utiliser, le modifier et le redistribuer, y compris dans un projet commercial, à condition de mentionner la source.
 
 Attribution recommandée :
 
-> Dataset français de détection des spams, version 1.1.0, corpus synthétique diversifié, 2026.
+> Dataset français de détection des spams, version 1.0, corpus synthétique, 2026.
 
-Consultez le fichier `LICENSE.md` pour plus d’informations.
+## Contribution
 
-## Citation
+Les contributions sont les bienvenues, notamment pour :
 
-```text
-Dataset français de détection des spams,
-version 1.0,
-corpus synthétique diversifié,
-2026.
-```
+- proposer des formulations françaises plus naturelles ;
+- améliorer la diversité des messages ;
+- signaler des erreurs ou des incohérences ;
+- contribuer à l’anonymisation et à l’annotation de futurs messages réels ;
+- suggérer de nouvelles catégories de spams.
+
+## Évolution du projet
+
+Cette version constitue une première étape. Le projet a vocation à évoluer vers un dataset plus représentatif des messages réels en français, avec davantage de diversité linguistique, de contextes et de catégories de spams.
+
+Les retours de la communauté permettront d’améliorer progressivement la qualité et l’utilité du dataset.
