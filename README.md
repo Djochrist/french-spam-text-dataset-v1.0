@@ -1,7 +1,7 @@
 # Dataset français de détection des spams
 
 <p align="center">
-  <img src="https://img.shields.io/badge/🚀_VERSION-1.1.0-7c3aed?style=for-the-badge&labelColor=111827" alt="Version 1.1.0">
+  <img src="https://img.shields.io/badge/🚀_VERSION-1.0-7c3aed?style=for-the-badge&labelColor=111827" alt="Version 1.1.0">
   <img src="https://img.shields.io/badge/📦_MESSAGES-10_000-0ea5e9?style=for-the-badge&labelColor=111827" alt="10 000 messages">
   <img src="https://img.shields.io/badge/🇫🇷_LANGUE-Français-f97316?style=for-the-badge&labelColor=111827" alt="Français">
 </p>
@@ -144,7 +144,7 @@ Consultez le fichier `LICENSE.md` pour plus d’informations.
 
 ```text
 Dataset français de détection des spams,
-version 1.1.0,
+version 1.0,
 corpus synthétique diversifié,
 2026.
 ```
