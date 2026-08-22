@@ -48,4 +48,4 @@ SHA-256 de `data/messages.csv` :
 
 ## Citation
 
-> Dataset français de détection des spams, version 1.1.0, corpus synthétique diversifié, 2026.
+> Dataset français de détection des spams, version 1.0, corpus synthétique diversifié, 2026.
